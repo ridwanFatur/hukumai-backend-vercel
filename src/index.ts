@@ -3,7 +3,7 @@ import express from 'express'
 const app = express()
 
 app.get('/', (req, res) => {
-  res.json({ message: 'App is Ready'});
+  res.json({ message: 'It is staging'});
 });
 
 app.get('/api/users/:id', (_req, res) => {
