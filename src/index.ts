@@ -1,9 +1,16 @@
 import express from 'express'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 
+app.get('/env', (req, res) => {
+  res.json({ appName: process.env.APP_NAME })
+})
+
 app.get('/', (req, res) => {
-  res.json({ message: 'Can I push this?'});
+  res.json({ message: 'App is Ready!'});
 });
 
 app.get('/api/users/:id', (_req, res) => {
