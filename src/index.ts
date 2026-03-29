@@ -10,7 +10,7 @@ app.get('/env', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-  res.json({ message: 'App is Ready'});
+  res.json({ message: 'App is Ready!'});
 });
 
 app.get('/api/users/:id', (_req, res) => {
