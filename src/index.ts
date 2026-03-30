@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/env', (req, res) => {
-	res.json({ cors_origins: process.env.CORS_ORIGINS });
+	res.json({ cors_origins: corsOrigins });
 });
 
 app.use('/api/users', userRoutes);
