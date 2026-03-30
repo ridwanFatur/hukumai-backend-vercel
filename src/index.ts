@@ -8,14 +8,23 @@ dotenv.config()
 
 const app = express()
 
-const corsOrigins = process.env.CORS_ORIGINS?.split(',').map(origin => origin.trim()) || []
+const corsOrigins = process.env.CORS_ORIGINS?.split(',').map(origin => origin.trim()) || [];
 
-app.use(cors({
-	origin: "https://hukumai.ridwanfatur.site",
-	// credentials: true,
-	// methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-	// allowedHeaders: ["Content-Type", "Authorization"]
-}))
+app.use((req, res, next) => {
+	const origin = req.headers.origin;
+	if (corsOrigins.includes(origin)) {
+		res.header("Access-Control-Allow-Origin", origin);
+		res.header("Access-Control-Allow-Credentials", "true");
+		res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+		res.header("Access-Control-Allow-Headers", "Content-Type,Authorization");
+	}
+
+	if (req.method === "OPTIONS") {
+		return res.sendStatus(204);
+	}
+
+	next();
+});
 
 app.get('/', (req, res) => {
 	res.json({ message: 'App is Ready!' });
