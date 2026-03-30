@@ -2,6 +2,8 @@
   "name": "express",
   "type": "module",
   "dependencies": {
+    "@prisma/client": "^7.6.0",
+    "axios": "^1.14.0",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "5.1.0",
@@ -12,6 +14,7 @@
     "@types/express": "5.0.0",
     "@types/multer": "^2.1.0",
     "@types/node": "20.11.17",
+    "prisma": "^7.6.0",
     "typescript": "5.8.3"
   }
 }
