@@ -20,6 +20,10 @@ app.get('/', (req, res) => {
 	res.json({ message: 'App is Ready!' });
 });
 
+app.get('/env', (req, res) => {
+	res.json({ cors_origins: process.env.CORS_ORIGINS });
+});
+
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 
