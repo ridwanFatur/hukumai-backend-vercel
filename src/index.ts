@@ -1,24 +1,26 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import cors from 'cors'
+import userRoutes from './routes/userRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 dotenv.config()
 
 const app = express()
 
-app.get('/env', (req, res) => {
-  res.json({ appName: process.env.APP_NAME })
-})
+const corsOrigins = process.env.CORS_ORIGINS?.split(',').map(origin => origin.trim()) || []
+app.use(cors({
+	origin: corsOrigins,
+	credentials: true,
+	methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+	allowedHeaders: ["Content-Type", "Authorization"]
+}))
 
 app.get('/', (req, res) => {
-  res.json({ message: 'App is Ready!'});
+	res.json({ message: 'App is Ready!' });
 });
 
-app.get('/api/users/:id', (_req, res) => {
-  res.json({ id: _req.params.id })
-})
-
-app.get('/api/posts/:postId/comments/:commentId', (_req, res) => {
-  res.json({ postId: _req.params.postId, commentId: _req.params.commentId })
-})
+app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
 
 export default app
