@@ -9,12 +9,24 @@ dotenv.config()
 const app = express()
 
 const corsOrigins = process.env.CORS_ORIGINS?.split(',').map(origin => origin.trim()) || []
-app.use(cors({
-	origin: corsOrigins,
+
+const corsOptions = {
+	origin: function (origin, callback) {
+		if (!origin) return callback(null, true);
+
+		if (corsOrigins.indexOf(origin) !== -1 || corsOrigins.includes('*')) {
+			callback(null, true);
+		} else {
+			callback(new Error('Not allowed by CORS'));
+		}
+	},
 	credentials: true,
 	methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-	allowedHeaders: ["Content-Type", "Authorization"]
-}))
+	allowedHeaders: ["Content-Type", "Authorization"],
+	optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions))
 
 app.get('/', (req, res) => {
 	res.json({ message: 'App is Ready!' });
