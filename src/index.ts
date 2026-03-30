@@ -26,17 +26,8 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use('/', (req, res, next) => {
-	res.setHeader('Cache-Control', 'no-store');
-	next();
-});
-
 app.get('/', (req, res) => {
 	res.json({ message: 'App is Ready!' });
-});
-
-app.get('/env', (req, res) => {
-	res.json({ cors_origins: corsOrigins });
 });
 
 app.use('/api/users', userRoutes);
