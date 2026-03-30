@@ -26,6 +26,11 @@ app.use((req, res, next) => {
 	next();
 });
 
+app.use('/', (req, res, next) => {
+	res.setHeader('Cache-Control', 'no-store');
+	next();
+});
+
 app.get('/', (req, res) => {
 	res.json({ message: 'App is Ready!' });
 });
